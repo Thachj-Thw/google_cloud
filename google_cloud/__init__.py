@@ -1,7 +1,6 @@
 from __future__ import print_function
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from regex import P
 from .actions import ActionChain
 from .types import PasteType
 from pandas import DataFrame
