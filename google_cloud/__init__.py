@@ -72,7 +72,7 @@ class GoogleSheet(object):
         data = result.get("values", [])
         return DataFrame(data)
 
-    def insert(self, sheet: str, name_box: str, values: Union[list[list], tuple[tuple], float, str, int]) -> dict:
+    def write(self, sheet: str, name_box: str, values: Union[list[list], tuple[tuple], float, str, int]) -> dict:
         if isinstance(values, (float, int, str)):
             values = [[values]]
         return self._spreadsheet.values().update(
@@ -82,11 +82,11 @@ class GoogleSheet(object):
             body={"values": values}
         ).execute()
 
-    def insert_row(self, sheet: str, name_box: str, values: Union[list, tuple]) -> dict:
-        return self.insert(sheet, name_box, [values])
+    def write_row(self, sheet: str, name_box: str, values: Union[list, tuple]) -> dict:
+        return self.write(sheet, name_box, [values])
 
-    def insert_column(self, sheet: str, name_box: str, values: Union[list, tuple]) -> dict:
-        return self.insert(sheet, name_box, [[v] for v in values])
+    def write_column(self, sheet: str, name_box: str, values: Union[list, tuple]) -> dict:
+        return self.write(sheet, name_box, [[v] for v in values])
 
     def clear(self, sheet: str) -> dict:
         return self._spreadsheet.values().clear(spreadsheetId=self._id, range=sheet).execute()
